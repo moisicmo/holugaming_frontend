@@ -1,0 +1,9 @@
+{
+  "singleQuote":true,
+  "tsxSilgeQuote":true,
+  "trailingComma":"es5",
+  "tabWith":2,
+  "semi":true,
+  "printWidth": 100,
+  "singleAttrivutePerLine":true
+}

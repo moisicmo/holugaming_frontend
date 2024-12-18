@@ -1,0 +1,22 @@
+.react-daterange-picker {
+  width: 100%;
+  color: grey;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.react-daterange-picker .react-calendar__tile--active {
+  background-color: #F26522;
+  color: white;
+  border: none
+}
+
+.react-daterange-picker__wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  align-items: center;
+  border: thin solid #6C737F;
+  padding: 11px;
+  border-radius: 10px;
+}

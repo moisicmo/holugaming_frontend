@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +11,11 @@ import { Link } from 'react-router-dom';
 import logo from '@/assets/images/holu.svg';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AuthModal } from './views/auth/AuthModal';
+import { useAuthStore, usePopover } from './hooks';
+import { useEffect, useState } from 'react';
+import { Avatar, Stack, Typography } from '@mui/material';
+import { MenuOutlined } from '@mui/icons-material';
+import noimage from '@/assets/images/profile.png';
 
 const pages = [
   { name: 'Acerca de nosotros', url: '/about' },
@@ -20,9 +25,15 @@ const pages = [
 
 export const Header = () => {
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [scrolled, setScrolled] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const { user, status, checkAuthToken } = useAuthStore();
+  const accountPopover = usePopover();
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -32,7 +43,7 @@ export const Header = () => {
     setAnchorElNav(null);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setScrolled(true);
@@ -110,12 +121,43 @@ export const Header = () => {
                 </Button>
               ))}
             </Box>
-            <Box sx={{ flexGrow: 0 }}>
-              <Button onClick={() => setOpenDialog(true)} variant="contained" color="primary" size="large">iniciar Sesión</Button>
-              {/* <IconButton sx={{ p: 0 }}>
-                <Avatar src="/broken-image.jpg" />
-              </IconButton> */}
-            </Box>
+            {
+              status === 'not-authenticated' ?
+              <Box sx={{ flexGrow: 0 }}>
+                <Button onClick={() => setOpenDialog(true)} variant="contained" color="primary" size="large">iniciar Sesión</Button>
+              </Box>
+              :
+              <Stack
+              alignItems="center"
+              direction="row"
+              justifyContent="space-between"
+              spacing={2}
+              // sx={{
+              //   minHeight: TOP_NAV_HEIGHT,
+              //   px: 2,
+              //   py: 1,
+              // }}
+            >
+              {/* <Stack alignItems="center" direction="row" spacing={2}>
+                {!lgUp && (
+                  <IconButton onClick={onNavOpen}>
+                    <MenuOutlined color="primary" />
+                  </IconButton>
+                )}
+              </Stack> */}
+              <Stack
+                alignItems="center"
+                spacing={2} direction="row"
+              >
+              <Avatar
+                onClick={accountPopover.handleOpen}
+                ref={accountPopover.anchorRef}
+                sx={{ cursor: 'pointer', width: 45, height: 45 }}
+                src={noimage}
+              />
+              </Stack>
+            </Stack>
+            }
           </Toolbar>
         </Container>
       </AppBar>

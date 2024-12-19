@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { coffeApi } from '@/services';
+import { coffeApiUsers } from '@/services';
 import { setPermissions } from '@/store';
 import { useErrorStore } from '.';
 
@@ -10,7 +10,7 @@ export const usePermissionStore = () => {
 
   const getPermissions = async () => {
     try {
-      const { data } = await coffeApi.get('/permission');
+      const { data } = await coffeApiUsers.get('/permission');
       console.log(data);
       dispatch(setPermissions({ permissions: data.permissions }));
     } catch (error) {

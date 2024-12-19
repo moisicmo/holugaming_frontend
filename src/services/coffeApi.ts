@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getEnvVariables } from '../helpers';
 
-const { VITE_HOST_BACKEND } = getEnvVariables();
+const { VITE_HOST_BACKEND, VITE_HOST_BACKEND_USERS } = getEnvVariables();
 
 // Creamos una función que devuelve la instancia de axios con el host deseado
 const createAxiosInstance = (baseURL: string) => {
@@ -18,4 +18,5 @@ const createAxiosInstance = (baseURL: string) => {
   return instance;
 };
 
+export const coffeApiUsers = createAxiosInstance(VITE_HOST_BACKEND_USERS);
 export const coffeApi = createAxiosInstance(VITE_HOST_BACKEND);

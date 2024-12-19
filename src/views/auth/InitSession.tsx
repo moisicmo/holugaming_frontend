@@ -46,12 +46,11 @@ export const InitSession = (props: Props) => {
     setFormSubmitted(true);
     if (!isFormValid) return;
     const value = await startLogin({ "typeContact":"EMAIL","data":email, password });
-    console.log(value)
-    if(value.statusCode === 1 ){
+    if(value?.statusCode === 1 ){
       validateEmail(email);
     }
-    // handleClose();
-    // onResetForm();
+    cancel();
+    onResetForm();
   };
   return (
     <>

@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { useAuthStore } from '@/hooks';
-import { Layout } from '@/views/layout';
+// import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+// import { useAuthStore } from '@/hooks';
+// import { Layout } from '@/views/layout';
 /* Rutas */
-import { DashboardView } from '@/views/pages/dashboard';
+// import { DashboardView } from '@/views/pages/dashboard';
 import { About } from '@/views/home/About';
 import { Contact } from '@/views/home/Contact';
 import { Banner } from '@/views/home/Banner';
@@ -12,13 +12,13 @@ import { NotFound } from '@/views/home/NotFound';
 import { Tournament } from '@/views/home/tournaments/Tournament';
 export const AppRouter = () => {
 
-  const { status, checkAuthToken } = useAuthStore();
-  useEffect(() => {
-    checkAuthToken();
-  }, []);
+  // const { status, checkAuthToken } = useAuthStore();
+  // useEffect(() => {
+  //   checkAuthToken();
+  // }, []);
 
   return (
-    (status === 'not-authenticated') ?
+    // (status === 'not-authenticated') ?
       <Routes>
         <Route path='/' element={<Banner />} />
         <Route path='/about' element={<About />} />
@@ -27,14 +27,14 @@ export const AppRouter = () => {
         <Route path='/tournament/:gameName' element={<Tournament />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      :
-      <Layout>
-        <Routes>
-          <Route path='/dashboardView' element={<DashboardView />} />
+      // :
+      // <Layout>
+      //   <Routes>
+      //     <Route path='/dashboardView' element={<DashboardView />} />
 
-          {/*  */}
-          <Route path="/*" element={<Navigate to={"/dashboardView"} />} />
-        </Routes>
-      </Layout>
+      //     {/*  */}
+      //     <Route path="/*" element={<Navigate to={"/dashboardView"} />} />
+      //   </Routes>
+      // </Layout>
   )
 }

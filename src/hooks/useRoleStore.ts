@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { coffeApi } from '@/services';
+import { coffeApiUsers } from '@/services';
 import { setAddRole, setDeleteRole, setRoles, setUpdateRole } from '@/store';
 import { useAlertStore, useErrorStore } from '.';
 
@@ -11,7 +11,7 @@ export const useRoleStore = () => {
 
   const getRoles = async () => {
     try {
-      const { data } = await coffeApi.get('/role');
+      const { data } = await coffeApiUsers.get('/role');
       console.log(data);
       dispatch(setRoles({ roles: data.roles }));
     } catch (error) {
@@ -21,7 +21,7 @@ export const useRoleStore = () => {
 
   const createRole = async (body: object) => {
     try {
-      const { data } = await coffeApi.post(`/role`, body);
+      const { data } = await coffeApiUsers.post(`/role`, body);
       console.log(data);
       dispatch(setAddRole({ role: data }));
       showSuccess('Rol creado correctamente');
@@ -32,7 +32,7 @@ export const useRoleStore = () => {
 
   const updateRole = async (id: number, body: object) => {
     try {
-      const { data } = await coffeApi.put(`/role/${id}`, body);
+      const { data } = await coffeApiUsers.put(`/role/${id}`, body);
       console.log(data);
       dispatch(setUpdateRole({ role: data }));
       showSuccess('Rol editado correctamente');
@@ -45,7 +45,7 @@ export const useRoleStore = () => {
     try {
       const result = await showWarning();
       if (result.isConfirmed) {
-        await coffeApi.delete(`/role/${id}`);
+        await coffeApiUsers.delete(`/role/${id}`);
         dispatch(setDeleteRole({ id }));
         showSuccess('Rol eliminado correctamente');
       } else {

@@ -10,12 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import logo from '@/assets/images/holu.svg';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AuthModal } from './views/auth/AuthModal';
 import { useAuthStore, usePopover } from './hooks';
 import { useEffect, useState } from 'react';
-import { Avatar, Stack, Typography } from '@mui/material';
-import { MenuOutlined } from '@mui/icons-material';
+import { Avatar, Stack } from '@mui/material';
 import noimage from '@/assets/images/profile.png';
+import { AuthModal } from './views/auth/AuthModal';
+import { AccountPopover } from './views/layout';
 
 const pages = [
   { name: 'Acerca de nosotros', url: '/about' },
@@ -28,7 +28,7 @@ export const Header = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const { user, status, checkAuthToken } = useAuthStore();
+  const { status, checkAuthToken } = useAuthStore();
   const accountPopover = usePopover();
   useEffect(() => {
     checkAuthToken();
@@ -123,44 +123,50 @@ export const Header = () => {
             </Box>
             {
               status === 'not-authenticated' ?
-              <Box sx={{ flexGrow: 0 }}>
-                <Button onClick={() => setOpenDialog(true)} variant="contained" color="primary" size="large">iniciar Sesión</Button>
-              </Box>
-              :
-              <Stack
-              alignItems="center"
-              direction="row"
-              justifyContent="space-between"
-              spacing={2}
-              // sx={{
-              //   minHeight: TOP_NAV_HEIGHT,
-              //   px: 2,
-              //   py: 1,
-              // }}
-            >
-              {/* <Stack alignItems="center" direction="row" spacing={2}>
-                {!lgUp && (
-                  <IconButton onClick={onNavOpen}>
-                    <MenuOutlined color="primary" />
-                  </IconButton>
-                )}
-              </Stack> */}
-              <Stack
-                alignItems="center"
-                spacing={2} direction="row"
-              >
-              <Avatar
-                onClick={accountPopover.handleOpen}
-                ref={accountPopover.anchorRef}
-                sx={{ cursor: 'pointer', width: 45, height: 45 }}
-                src={noimage}
-              />
-              </Stack>
-            </Stack>
+                <Box sx={{ flexGrow: 0 }}>
+                  <Button onClick={() => setOpenDialog(true)} variant="contained" color="primary" size="large">iniciar Sesión</Button>
+                </Box>
+                :
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  justifyContent="space-between"
+                  spacing={2}
+                // sx={{
+                //   minHeight: TOP_NAV_HEIGHT,
+                //   px: 2,
+                //   py: 1,
+                // }}
+                >
+                  {/* <Stack alignItems="center" direction="row" spacing={2}>
+                    {!lgUp && (
+                      <IconButton onClick={onNavOpen}>
+                        <MenuOutlined color="primary" />
+                      </IconButton>
+                    )}
+                  </Stack> */}
+                  <Stack
+                    alignItems="center"
+                    spacing={2} direction="row"
+                  >
+                    <Avatar
+                      onClick={accountPopover.handleOpen}
+                      ref={accountPopover.anchorRef}
+                      sx={{ cursor: 'pointer', width: 45, height: 45 }}
+                      src={noimage}
+                    />
+                  </Stack>
+                </Stack>
             }
           </Toolbar>
         </Container>
       </AppBar>
+      {accountPopover.open && <AccountPopover
+        anchorEl={accountPopover.anchorRef.current}
+        open={accountPopover.open}
+        onClose={accountPopover.handleClose}
+        onTapSettings={() => accountPopover.handleClose()}
+      />}
       {openDialog && (
         <AuthModal
           open={openDialog}

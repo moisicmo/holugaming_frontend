@@ -18,12 +18,12 @@ export const useAuthStore = () => {
       if(data.statusCode == 1){
         return data;
       }
-      const user = `${data.user.name} ${data.user.lastName}`;
+      // const user = `${data.user.name} ${data.user.lastName}`;
       // const role = data.user.staffs.role;
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', user);
       // localStorage.setItem('role', JSON.stringify(role));
-      dispatch(onLogin(user));
+      dispatch(onLogin(data.user));
       // dispatch(setRoleUser({ role }));
     } catch (error) {
       dispatch(onLogout());

@@ -8,3 +8,5 @@ export * from './useAuthStore';
 // export * from './useStaffStore';
 export * from './usePermissionStore';
 export * from './useRoleStore';
+export * from './useTournamentStore';
+export * from './usePlayerStore';

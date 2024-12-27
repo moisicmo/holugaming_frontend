@@ -1,14 +1,20 @@
 
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useAuthStore, useLogoutStore } from '@/hooks';
 
-export const AccountPopover = ({ anchorEl, onClose, open, onTapSettings }: { anchorEl: any, onClose: any, open: boolean, onTapSettings: any }) => {
+interface Props {
+  anchorEl: any,
+  onClose: ()=>void,
+  open: boolean,
+  onTapSettings: ()=>void,
+}
 
-  const navigate = useNavigate();
+export const AccountPopover = (props: Props) => {
+
+  const { anchorEl, onClose, open, onTapSettings } = props;
+
   const { startLogout } = useLogoutStore();
   const { user } = useAuthStore();
-
   return (
     <Popover
       anchorEl={anchorEl}
@@ -32,7 +38,7 @@ export const AccountPopover = ({ anchorEl, onClose, open, onTapSettings }: { anc
           color="text.secondary"
           variant="body2"
         >
-          {user}
+           {user.name} {user.lastName}
         </Typography>}
       </Box>
       <Divider />
@@ -47,14 +53,12 @@ export const AccountPopover = ({ anchorEl, onClose, open, onTapSettings }: { anc
         }}
       >
         <MenuItem onClick={() => onTapSettings()} >
-          Configuraciones
+          Mi Perfil
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            startLogout();
-            navigate('/');
-          }}
-        >
+        <MenuItem onClick={() => {
+          startLogout()
+          onClose()
+          }} >
           Salir Sesión
         </MenuItem>
       </MenuList>

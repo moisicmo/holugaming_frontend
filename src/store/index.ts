@@ -3,5 +3,6 @@ export * from './permission/permissionSlice';
 export * from './role/roleSlice';
 export * from './tournamentSlice';
 export * from './playerSlice';
+export * from './teamSlice';
 
 export * from './store';

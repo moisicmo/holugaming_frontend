@@ -4,6 +4,7 @@ import {
   permissionSlice,
   playerSlice,
   roleSlice,
+  teamSlice,
   tournamentSlice,
 } from '.';
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     roles: roleSlice.reducer,
     tournaments: tournamentSlice.reducer,
     players: playerSlice.reducer,
+    teams: teamSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

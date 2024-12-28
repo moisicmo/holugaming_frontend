@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { coffeApiUsers } from '@/services';
-import { setAddRole, setDeleteRole, setRoles, setUpdateRole } from '@/store';
+import { setAddRole, setRoles, setUpdateRole } from '@/store';
 import { useAlertStore, useErrorStore } from '.';
 
 export const useRoleStore = () => {
   const { roles } = useSelector((state: any) => state.roles);
   const dispatch = useDispatch();
   const { handleError } = useErrorStore();
-  const { showSuccess, showWarning, showError } = useAlertStore();
+  const { showSuccess } = useAlertStore();
 
   const getRoles = async () => {
     try {
@@ -41,16 +41,8 @@ export const useRoleStore = () => {
     }
   };
 
-  const deleteRole = async (id: number) => {
+  const deleteRole = async () => {
     try {
-      const result = await showWarning();
-      if (result.isConfirmed) {
-        await coffeApiUsers.delete(`/role/${id}`);
-        dispatch(setDeleteRole({ id }));
-        showSuccess('Rol eliminado correctamente');
-      } else {
-        showError('Cancelado', 'El rol esta a salvo :)');
-      }
     } catch (error) {
       throw handleError(error);
     }

@@ -10,3 +10,5 @@ export * from './usePermissionStore';
 export * from './useRoleStore';
 export * from './useTournamentStore';
 export * from './usePlayerStore';
+export * from './useTeamStore';
+export * from './useInscriptionStore';

@@ -5,16 +5,11 @@ export const useAlertStore = () => {
     Swal.fire(message, subtitle??'', 'success');
   };
 
-  const showWarning = () => {
+  const showWarning = (title: string, message: string) => {
     return Swal.fire({
-      title: '¿Estas seguro?',
-      text: '¡No podrás revertir esto!',
+      title: title,
+      text: message,
       icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, bórralo!',
-      cancelButtonText: '¡No, cancelar!',
     });
   };
 
